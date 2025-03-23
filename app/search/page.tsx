@@ -3,15 +3,15 @@
 import { useEffect } from "react";
 import DogCard from "@/components/search/dog-card";
 import useStore from "@/lib/store";
-import { fetchDogs } from "@/actions";
+import NextPage from "@/components/search/next-page";
 
 export default function Search() {
   const dogs = useStore((state) => state.dogs);
-  const setDogs = useStore((state) => state.setDogs);
+  const fetchDogs = useStore((state) => state.fetchDogs);
 
   useEffect(() => {
-    fetchDogs(setDogs);
-  }, [setDogs]);
+    fetchDogs();
+  }, [fetchDogs]);
 
   return (
     <div className="flex flex-col gap-4 items-center">
@@ -24,6 +24,7 @@ export default function Search() {
           <DogCard key={dog.id} dog={dog} />
         ))}
       </div>
+      <NextPage />
     </div>
   );
 }
