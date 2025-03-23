@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import DogCard from "@/components/search/dog-card";
 import useStore from "@/lib/store";
 import NextPage from "@/components/search/next-page";
+import PreviousPage from "@/components/search/previous-page";
 
 export default function Search() {
   const dogs = useStore((state) => state.dogs);
@@ -24,6 +25,7 @@ export default function Search() {
           <DogCard key={dog.id} dog={dog} />
         ))}
       </div>
+      <PreviousPage />
       <NextPage />
     </div>
   );
