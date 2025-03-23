@@ -6,6 +6,8 @@ import useStore from "@/lib/store";
 import NextPage from "@/components/search/next-page";
 import PreviousPage from "@/components/search/previous-page";
 import Favorites from "@/components/search/favorites";
+import Sort from "@/components/search/sort";
+
 export default function Search() {
   const dogs = useStore((state) => state.dogs);
   const fetchDogs = useStore((state) => state.fetchDogs);
@@ -21,6 +23,7 @@ export default function Search() {
         <div>
           {dogs.length} result{dogs.length !== 1 && "s"}
         </div>
+        <Sort />
         <Favorites />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

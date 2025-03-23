@@ -5,14 +5,18 @@ interface DogState {
   dogs: Dog[];
   next: string | undefined;
   prev: string | undefined;
+  sortField: "name" | "age" | "breed";
+  sortOrder: "asc" | "desc";
   favorites: Dog[];
   match: Dog | null;
   setDogs: (dogs: Dog[]) => void;
   setNext: (next: string) => void;
   setPrev: (prev: string) => void;
+  setSortField: (field: "name" | "age" | "breed") => void;
+  setSortOrder: (order: "asc" | "desc") => void;
   addFavorite: (dog: Dog) => void;
   removeFavorite: (dog: Dog) => void;
-  fetchDogs: (query?: string) => void;
+  fetchDogs: (page?: "next" | "prev") => void;
   findMatch: () => void;
 }
 
@@ -20,18 +24,28 @@ const useStore = create<DogState>()((set, get) => ({
   dogs: [],
   next: undefined,
   prev: undefined,
+  sortField: "breed",
+  sortOrder: "asc",
   favorites: [],
   match: null,
   setDogs: (dogs: Dog[]) => set({ dogs }),
   setNext: (next: string) => set({ next }),
   setPrev: (prev: string) => set({ prev }),
+  setSortField: (field: "name" | "age" | "breed") => set({ sortField: field }),
+  setSortOrder: (order: "asc" | "desc") => set({ sortOrder: order }),
   addFavorite: (dog: Dog) =>
     set((state) => ({ favorites: [...state.favorites, dog] })),
   removeFavorite: (dog: Dog) =>
     set((state) => ({
       favorites: state.favorites.filter((d) => d.id !== dog.id),
     })),
-  fetchDogs: async (query = "/dogs/search") => {
+  fetchDogs: async (page?: "next" | "prev") => {
+    const { next, prev, sortField, sortOrder } = get();
+    const query = page
+      ? page === "next"
+        ? next
+        : prev
+      : `/dogs/search?sort=${sortField}:${sortOrder}`;
     // Fetch dogs from the search route
     const response = await fetch(
       `https://frontend-take-home-service.fetch.com${query}`,

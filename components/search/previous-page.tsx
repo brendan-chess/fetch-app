@@ -7,5 +7,5 @@ export default function PreviousPage() {
 
   if (!prev) return null;
 
-  return <Button onClick={() => fetchDogs(prev)}>Previous</Button>;
+  return <Button onClick={() => fetchDogs("prev")}>Previous</Button>;
 }
