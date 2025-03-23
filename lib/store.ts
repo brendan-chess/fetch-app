@@ -6,19 +6,22 @@ interface DogState {
   next: string | undefined;
   prev: string | undefined;
   favorites: Dog[];
+  match: Dog | null;
   setDogs: (dogs: Dog[]) => void;
   setNext: (next: string) => void;
   setPrev: (prev: string) => void;
   addFavorite: (dog: Dog) => void;
   removeFavorite: (dog: Dog) => void;
   fetchDogs: (query?: string) => void;
+  findMatch: () => void;
 }
 
-const useStore = create<DogState>()((set) => ({
+const useStore = create<DogState>()((set, get) => ({
   dogs: [],
   next: undefined,
   prev: undefined,
   favorites: [],
+  match: null,
   setDogs: (dogs: Dog[]) => set({ dogs }),
   setNext: (next: string) => set({ next }),
   setPrev: (prev: string) => set({ prev }),
@@ -59,9 +62,33 @@ const useStore = create<DogState>()((set) => ({
     const dogs: Dog[] = await dogData.json();
 
     // Set the dogs being displayed
-    set({ dogs });
-    set({ next: data.next });
-    set({ prev: data.prev });
+    set({ dogs, next: data.next, prev: data.prev });
+  },
+  findMatch: async () => {
+    const favorites = get().favorites;
+
+    if (favorites.length < 1) {
+      return;
+    }
+
+    const response = await fetch(
+      "https://frontend-take-home-service.fetch.com/dogs/match",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(favorites.map((dog) => dog.id)),
+      },
+    );
+
+    const data: { match: string } = await response.json();
+
+    set({
+      match: favorites.find((dog) => dog.id === data.match) ?? null,
+      favorites: [],
+    });
   },
 }));
 
