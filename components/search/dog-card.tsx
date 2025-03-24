@@ -19,7 +19,7 @@ export default function DogCard({ dog }: { dog: Dog }) {
         <div className="space-y-1">
           <CardTitle className="text-xl">{dog.name}</CardTitle>
           <CardDescription>
-            {dog.age} year{dog.age !== 1 && "s"} old
+            {dog.age === 0 ? "<1" : dog.age} year{dog.age > 1 && "s"} old
           </CardDescription>
         </div>
         <FavoriteButton dog={dog} />

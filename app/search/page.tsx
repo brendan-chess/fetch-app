@@ -17,7 +17,7 @@ export default function Search() {
   }, [fetchDogs]);
 
   return (
-    <div className="flex flex-col gap-4 items-center bg-neutral-50">
+    <div className="flex flex-col items-center space-y-4 bg-neutral-50">
       <div className="flex sticky z-10 bg-white/80 backdrop-blur-sm top-0 p-4 w-full justify-between">
         <h1 className="text-2xl font-bold">Browse Dogs</h1>
         <div>
@@ -31,8 +31,10 @@ export default function Search() {
           <DogCard key={dog.id} dog={dog} />
         ))}
       </div>
-      <PreviousPage />
-      <NextPage />
+      <div className="flex justify-between space-x-8 pt-4 pb-16">
+        <PreviousPage />
+        <NextPage />
+      </div>
     </div>
   );
 }

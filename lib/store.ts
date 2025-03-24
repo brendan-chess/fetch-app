@@ -45,7 +45,7 @@ const useStore = create<DogState>()((set, get) => ({
       ? page === "next"
         ? next
         : prev
-      : `/dogs/search?sort=${sortField}:${sortOrder}`;
+      : `/dogs/search?sort=${sortField}:${sortOrder}&size=30`;
     // Fetch dogs from the search route
     const response = await fetch(
       `https://frontend-take-home-service.fetch.com${query}`,

@@ -1,3 +1,4 @@
+import { ChevronLeft } from "lucide-react";
 import { Button } from "../ui/button";
 import useStore from "@/lib/store";
 
@@ -7,5 +8,14 @@ export default function PreviousPage() {
 
   if (!prev) return null;
 
-  return <Button onClick={() => fetchDogs("prev")}>Previous</Button>;
+  return (
+    <Button
+      onClick={() => fetchDogs("prev")}
+      className="cursor-pointer p-3"
+      variant={"outline"}
+      asChild
+    >
+      <ChevronLeft className="w-12 h-12" />
+    </Button>
+  );
 }
