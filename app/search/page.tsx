@@ -17,23 +17,25 @@ export default function Search() {
   }, [fetchDogs]);
 
   return (
-    <div className="flex flex-col items-center space-y-4 bg-neutral-50">
-      <div className="flex sticky z-10 bg-white/80 backdrop-blur-sm top-0 p-4 w-full justify-between">
-        <h1 className="text-2xl font-bold">Browse Dogs</h1>
-        <div>
-          {dogs.length} result{dogs.length !== 1 && "s"}
+    <div className="flex flex-col items-center bg-neutral-50">
+      <div className="flex flex-col items-center max-w-7xl w-full px-8 border space-y-8 pt-12 bg-white">
+        <div className="text-2xl font-bold">Browse Dogs</div>
+        <div className="flex items-center justify-center space-x-12">
+          <div>
+            {dogs.length} result{dogs.length !== 1 && "s"}
+          </div>
+          <Sort />
+          <Favorites />
         </div>
-        <Sort />
-        <Favorites />
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-10">
-        {dogs.map((dog) => (
-          <DogCard key={dog.id} dog={dog} />
-        ))}
-      </div>
-      <div className="flex justify-between space-x-8 pt-4 pb-16">
-        <PreviousPage />
-        <NextPage />
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-12">
+          {dogs.map((dog) => (
+            <DogCard key={dog.id} dog={dog} />
+          ))}
+        </div>
+        <div className="flex justify-between space-x-8 pt-4 pb-16">
+          <PreviousPage />
+          <NextPage />
+        </div>
       </div>
     </div>
   );

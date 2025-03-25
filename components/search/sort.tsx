@@ -23,7 +23,7 @@ export default function Sort() {
   return (
     <div className="flex space-x-2">
       <Select value={sortField} onValueChange={setSortField}>
-        <SelectTrigger className="w-[130px]">
+        <SelectTrigger className="w-[130px] cursor-pointer">
           <SelectValue placeholder="Sort by" />
         </SelectTrigger>
         <SelectContent>
@@ -34,6 +34,7 @@ export default function Sort() {
       </Select>
       <Button
         variant={"outline"}
+        className="cursor-pointer"
         onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
       >
         {sortOrder === "asc" ? <ArrowUp /> : <ArrowDown />}

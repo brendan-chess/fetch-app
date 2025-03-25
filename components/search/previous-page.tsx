@@ -8,9 +8,14 @@ export default function PreviousPage() {
 
   if (!prev) return null;
 
+  const handleClick = () => {
+    fetchDogs("prev");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <Button
-      onClick={() => fetchDogs("prev")}
+      onClick={handleClick}
       className="cursor-pointer p-3"
       variant={"outline"}
       asChild

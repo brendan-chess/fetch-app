@@ -14,7 +14,7 @@ import { Heart, MapPin, PawPrint } from "lucide-react";
 
 export default function DogCard({ dog }: { dog: Dog }) {
   return (
-    <Card className="px-6">
+    <Card className="px-6 w-fit">
       <CardHeader className="flex justify-between items-center px-2">
         <div className="space-y-1">
           <CardTitle className="text-xl">{dog.name}</CardTitle>

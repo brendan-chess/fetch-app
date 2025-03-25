@@ -20,8 +20,9 @@ export default function Favorites() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant={"outline"}>
+        <Button className="flex items-center cursor-pointer">
           <Heart className="w-6 h-6" />
+          <span>Favorites</span>
         </Button>
       </SheetTrigger>
       <SheetContent>
