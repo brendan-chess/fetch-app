@@ -7,8 +7,9 @@ import {
 } from "@/components/ui/select";
 import useStore from "@/lib/store";
 import { Button } from "../ui/button";
-import { ArrowUp, ArrowDown } from "lucide-react";
+import { ArrowUp, ArrowDown, ArrowDownUp } from "lucide-react";
 import { useEffect } from "react";
+
 export default function Sort() {
   const sortField = useStore((state) => state.sortField);
   const sortOrder = useStore((state) => state.sortOrder);
@@ -21,7 +22,8 @@ export default function Sort() {
   }, [fetchDogs, sortField, sortOrder]);
 
   return (
-    <div className="flex space-x-2">
+    <div className="flex items-center space-x-2">
+      <ArrowDownUp className="w-5 h-5 stroke-muted-foreground" />
       <Select value={sortField} onValueChange={setSortField}>
         <SelectTrigger className="w-[130px] cursor-pointer">
           <SelectValue placeholder="Sort by" />

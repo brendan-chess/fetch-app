@@ -9,15 +9,19 @@ interface DogState {
   sortOrder: "asc" | "desc";
   favorites: Dog[];
   match: Dog | null;
+  breeds: string[];
+  breed: string;
   setDogs: (dogs: Dog[]) => void;
   setNext: (next: string) => void;
   setPrev: (prev: string) => void;
   setSortField: (field: "name" | "age" | "breed") => void;
   setSortOrder: (order: "asc" | "desc") => void;
+  setBreed: (breed: string) => void;
   addFavorite: (dog: Dog) => void;
   removeFavorite: (dog: Dog) => void;
   fetchDogs: (page?: "next" | "prev") => void;
   findMatch: () => void;
+  fetchBreeds: () => void;
 }
 
 const useStore = create<DogState>()((set, get) => ({
@@ -28,11 +32,14 @@ const useStore = create<DogState>()((set, get) => ({
   sortOrder: "asc",
   favorites: [],
   match: null,
+  breeds: [],
+  breed: "",
   setDogs: (dogs: Dog[]) => set({ dogs }),
   setNext: (next: string) => set({ next }),
   setPrev: (prev: string) => set({ prev }),
   setSortField: (field: "name" | "age" | "breed") => set({ sortField: field }),
   setSortOrder: (order: "asc" | "desc") => set({ sortOrder: order }),
+  setBreed: (breed: string) => set({ breed }),
   addFavorite: (dog: Dog) =>
     set((state) => ({ favorites: [...state.favorites, dog] })),
   removeFavorite: (dog: Dog) =>
@@ -40,12 +47,14 @@ const useStore = create<DogState>()((set, get) => ({
       favorites: state.favorites.filter((d) => d.id !== dog.id),
     })),
   fetchDogs: async (page?: "next" | "prev") => {
-    const { next, prev, sortField, sortOrder } = get();
+    const { next, prev, sortField, sortOrder, breed } = get();
     const query = page
       ? page === "next"
         ? next
         : prev
-      : `/dogs/search?sort=${sortField}:${sortOrder}&size=30`;
+      : `/dogs/search?sort=${sortField}:${sortOrder}&size=30${
+          breed && `&breeds=${breed}`
+        }`;
 
     // Fetch dogs from the search route
     const response = await fetch(
@@ -104,6 +113,22 @@ const useStore = create<DogState>()((set, get) => ({
       match: favorites.find((dog) => dog.id === data.match) ?? null,
       favorites: [],
     });
+  },
+  fetchBreeds: async () => {
+    const response = await fetch(
+      "https://frontend-take-home-service.fetch.com/dogs/breeds",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      },
+    );
+
+    const data: string[] = await response.json();
+
+    set({ breeds: data });
   },
 }));
 
