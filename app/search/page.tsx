@@ -8,7 +8,7 @@ import PreviousPage from "@/components/search/previous-page";
 import Sort from "@/components/search/sort";
 import BreedFilter from "@/components/search/breed-filter";
 import Favorites from "@/components/search/favorites";
-
+import LogoutButton from "@/components/ui/logout-button";
 export default function Search() {
   const dogs = useStore((state) => state.dogs);
   const fetchDogs = useStore((state) => state.fetchDogs);
@@ -22,7 +22,12 @@ export default function Search() {
   return (
     <div className="flex flex-col items-center bg-neutral-50">
       <div className="flex flex-col items-center max-w-7xl w-full px-8 border space-y-8 pt-12 bg-white min-h-screen">
-        <div className="text-2xl font-bold">Browse Dogs</div>
+        <div className="flex items-center w-full justify-center relative">
+          <div className="text-2xl font-bold">Browse Dogs</div>
+          <div className="absolute md:right-14 right-0">
+            <LogoutButton />
+          </div>
+        </div>
         <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 items-center justify-between w-full px-8 lg:px-14">
           <div className="flex flex-col items-start md:flex-row space-y-4 md:space-y-0 md:items-center space-x-12">
             <BreedFilter />
