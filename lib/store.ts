@@ -42,8 +42,14 @@ const useStore = create<DogState>()((set, get) => ({
   setSortField: (field: "name" | "age" | "breed") => set({ sortField: field }),
   setSortOrder: (order: "asc" | "desc") => set({ sortOrder: order }),
   setBreed: (breed: string) => set({ breed }),
-  addFavorite: (dog: Dog) =>
-    set((state) => ({ favorites: [...state.favorites, dog] })),
+  addFavorite: (dog: Dog) => {
+    if (get().match) {
+      // Clear the match if the user starts adding favorites again, letting them reset
+      set({ match: null });
+    }
+
+    set((state) => ({ favorites: [...state.favorites, dog] }));
+  },
   removeFavorite: (dog: Dog) =>
     set((state) => ({
       favorites: state.favorites.filter((d) => d.id !== dog.id),
