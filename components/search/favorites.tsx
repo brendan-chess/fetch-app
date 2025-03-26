@@ -10,7 +10,10 @@ export default function Favorites() {
   return (
     <div className="px-4 pb-12">
       {match ? (
-        <DogCard dog={match} />
+        <div className="flex flex-col items-center justify-center space-y-6">
+          <div className="text-xl font-bold">Your Match</div>
+          <DogCard dog={match} />
+        </div>
       ) : (
         <>
           {favorites.length > 0 && (
