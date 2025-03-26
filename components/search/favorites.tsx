@@ -26,7 +26,7 @@ export default function Favorites() {
           )}
           <div className="space-y-4 overflow-y-scroll">
             {favorites.length < 1 ? (
-              <div className="flex flex-col items-center justify-center space-y-2">
+              <div className="flex flex-col items-center justify-center space-y-2 pt-4">
                 <Dog size={32} className="stroke-muted-foreground" />
                 <div className="text-sm text-muted-foreground">
                   No dogs favorited yet.

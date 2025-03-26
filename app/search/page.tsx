@@ -23,15 +23,13 @@ export default function Search() {
     <div className="flex flex-col items-center bg-neutral-50">
       <div className="flex flex-col items-center max-w-7xl w-full px-8 border space-y-8 pt-12 bg-white min-h-screen">
         <div className="text-2xl font-bold">Browse Dogs</div>
-        <div className="flex items-center justify-between w-full px-14">
-          <div className="flex items-center space-x-12">
+        <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 items-center justify-between w-full px-8 lg:px-14">
+          <div className="flex flex-col items-start md:flex-row space-y-4 md:space-y-0 md:items-center space-x-12">
             <BreedFilter />
             <Sort />
           </div>
-          <div className="flex items-center space-x-8">
-            <div className="text-muted-foreground">
-              {results} result{results !== 1 && "s"}
-            </div>
+          <div className="text-muted-foreground">
+            {results} result{results !== 1 && "s"}
           </div>
         </div>
         <div className="flex items-center space-x-12">
