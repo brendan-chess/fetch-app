@@ -12,6 +12,7 @@ import Favorites from "@/components/search/favorites";
 export default function Search() {
   const dogs = useStore((state) => state.dogs);
   const fetchDogs = useStore((state) => state.fetchDogs);
+  const results = useStore((state) => state.results);
   const [showFavorites, setShowFavorites] = useState(false);
 
   useEffect(() => {
@@ -29,7 +30,7 @@ export default function Search() {
           </div>
           <div className="flex items-center space-x-8">
             <div className="text-muted-foreground">
-              {dogs.length} result{dogs.length !== 1 && "s"}
+              {results} result{results !== 1 && "s"}
             </div>
           </div>
         </div>

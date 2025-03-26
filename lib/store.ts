@@ -7,6 +7,7 @@ interface DogState {
   prev: string | undefined;
   sortField: "name" | "age" | "breed";
   sortOrder: "asc" | "desc";
+  results: number;
   favorites: Dog[];
   match: Dog | null;
   breeds: string[];
@@ -30,6 +31,7 @@ const useStore = create<DogState>()((set, get) => ({
   prev: undefined,
   sortField: "breed",
   sortOrder: "asc",
+  results: 0,
   favorites: [],
   match: null,
   breeds: [],
@@ -86,7 +88,7 @@ const useStore = create<DogState>()((set, get) => ({
     const dogs: Dog[] = await dogData.json();
 
     // Set the dogs being displayed
-    set({ dogs, next: data.next, prev: data.prev });
+    set({ dogs, next: data.next, prev: data.prev, results: data.total });
   },
   findMatch: async () => {
     const favorites = get().favorites;
