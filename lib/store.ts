@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { Dog, SearchResponse } from "@/types";
+import { redirect } from "next/navigation";
 
 interface DogState {
   dogs: Dog[];
@@ -76,6 +77,10 @@ const useStore = create<DogState>()((set, get) => ({
       },
     );
 
+    if (response.status === 401) {
+      redirect("/");
+    }
+
     const data: SearchResponse = await response.json();
 
     // Get full dog data from the dogs route
@@ -115,6 +120,10 @@ const useStore = create<DogState>()((set, get) => ({
       },
     );
 
+    if (response.status === 401) {
+      redirect("/");
+    }
+
     const data: { match: string } = await response.json();
 
     set({
@@ -133,6 +142,10 @@ const useStore = create<DogState>()((set, get) => ({
         credentials: "include",
       },
     );
+
+    if (response.status === 401) {
+      redirect("/");
+    }
 
     const data: string[] = await response.json();
 
